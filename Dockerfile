@@ -1,12 +1,13 @@
 # First stage: build the application
-FROM python:3.7-slim AS build
+FROM python:3.7-slim 
+ENV PYTHONUNBUFFERED=1
 WORKDIR /app
-COPY requirements.txt ./
-RUN pip install -r requirements.txt
-COPY . .
 
-# Second stage: create the final Docker image
-FROM python:3.7-slim
-WORKDIR /app
-COPY --from=build /app .
-CMD ["python", "./main.py"]
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+
+COPY app.py app.py
+
+EXPOSE 5000
+
+CMD ["python3","-m","flask","run","--host=0.0.0.0","--port=5000"]
