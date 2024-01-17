@@ -1,5 +1,5 @@
 # First stage: build the application
-FROM python:3.7-slim-buster
+FROM python:3.7
 ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
